@@ -23,7 +23,7 @@ body.fade-in .container{
 html,
 body{
     width:100%;
-    min-height:100%;
+    min-height:130%;
     margin:0;
     padding:0;
 
@@ -59,24 +59,56 @@ body{
     text-align:center;
 }
 
-/* LOGO */
-
-.logo-wrap{
-    width:100%;
-
-    display:flex;
-    justify-content:center;
-
-    margin-top:14px;
-    margin-bottom:42px;
+.info-box{
+    width:90%;
+    max-width:380px;
+    margin:15px auto;
 }
 
-.logo{
-    width:120px;
+.info-title{
+    color:#ffffff;
 
-    height:auto;
+    font-size:13px;
+    font-weight:800;
 
-    display:block;
+    text-align:center;
+
+    letter-spacing:.8px;
+
+    margin-bottom:12px;
+}
+
+.step-text{
+    color:rgba(255,255,255,.95);
+
+    font-size:14px;
+    font-weight:600;
+
+    line-height:1.2;
+
+    margin-bottom:4px;
+}
+
+.step-text span{
+    color:#7fd0ff;
+
+    font-weight:900;
+
+    margin-right:4px;
+}
+
+
+.info-note{
+    margin-top:10px;
+    font-weight:800;
+
+    color:rgba(255,255,255,.75);
+
+    font-size:9px;
+
+    text-align:center;
+
+    line-height:1.6;
 }
 
 /* ========================= */
@@ -85,210 +117,47 @@ body{
 
 .card{
     width:80%;
-    margin-left:45px;
+    height:230px;
+    margin:0 auto;
     background:#fff;
     border-radius:14px;
     overflow:hidden;
-    padding:5px;
     position:relative;
 }
 
 .photo-video{
     width:100%;
-    display:block;
-    border-radius:12px;
-}
-
-/* ========================= */
-/* MENUNGGU KONFIRMASI */
-/* ========================= */
-
-.waiting-wrapper{
-    margin-bottom:18px;
-    margin-top:30px;
-}
-
-.video-text{
-    color:#fff;
-    font-size:18px;
-    font-weight:700;
-    text-align:center;
-    line-height:1.4;
-}
-
-/* ========================= */
-/* TITIK LOADING */
-/* ========================= */
-
-.dots-loading{
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    margin-top:10px;
-}
-
-.dots-loading span{
-    width:7px;
-    height:7px;
-
-    background:#fff;
-
-    border-radius:50%;
-
-    animation:bounce 1s infinite ease-in-out;
-}
-
-.dots-loading span:nth-child(2){
-    animation-delay:.2s;
-}
-
-.dots-loading span:nth-child(3){
-    animation-delay:.4s;
-}
-
-@keyframes bounce{
-
-    0%,80%,100%{
-        transform:scale(.7);
-        opacity:.4;
-    }
-
-    40%{
-        transform:scale(1.2);
-        opacity:1;
-    }
-
-}
-
-/* ========================= */
-/* NOTIF */
-/* ========================= */
-
-.notif-overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
     height:100%;
-    pointer-events:none;
-    z-index:9999;
-}
-
-.notif-box{
-    position:absolute;
-    top:18px;
-    left:50%;
-    width:92%;
-    max-width:430px;
-
-    transform:
-    translateX(-50%)
-    translateY(-180px);
-
-    transition:.45s ease;
-    opacity:0;
-}
-
-.notif-box.show{
-
-    transform:
-    translateX(-50%)
-    translateY(0);
-
-    opacity:1;
-}
-
-.notif-img{
-    width:100%;
-    border-radius:12px;
     display:block;
-}
-
-/* ========================= */
-/* BUTTON LANJUTKAN */
-/* ========================= */
-
-.lanjut-btn{
-    width:60%;
-    height:40px;
-
-    margin-top:20px;
-
-    border:none;
-    border-radius:5px;
-
-    background:#fff;
-
-    color:#118EEA;
-
-    font-size:16px;
-    font-weight:700;
-
-    cursor:pointer;
-}
-
-.close-otp{
-    position:absolute;
-    top:15px;
-    right:15px;
-
-    width:27px;
-    height:27px;
-
-    border:none;
-    border-radius:50%;
-
-    background:#fff;
-    color:#333;
-
-    font-size:24px;
-    cursor:pointer;
+    object-fit:fill;
 }
 
 .otp-card{
-    position:fixed;
-
-    top:50%;
-    left:50%;
-
-    width:90%;
-    max-width:420px;
+    width:82%;
+    max-width:350px;
 
     background:#1256a9;
 
-    border-radius:20px;
+    border-radius:25px;
 
-    padding:30px 20px;
+    padding:18px 18px;
 
-    z-index:9999;
+    margin:20px auto 0;
 
-    transform:
-    translate(-50%,-50%)
-    scale(.8);
-
-    opacity:0;
-
-    visibility:hidden;
-
-    transition:.3s ease;
-}
-
-.otp-card.show{
-    transform:
-    translate(-50%,-50%)
-    scale(1);
+    position:relative;
 
     opacity:1;
+    filter:none;
 
-    visibility:visible;
+    z-index:10;
 }
 
 /* TITLE */
 .title{
     color:#fff;
-    font-size:19px;
+    font-size:18px;
     margin-bottom:22px;
-    font-weight:600;
+    font-weight:500;
     margin-bottom:9px;
 }
 
@@ -296,14 +165,9 @@ body{
     font-weight:600;
 }
 
-.verifikasi-title{
-  font-size:15px;
-}
-
-
 /* NUMBER BOX */
 .number-box{
-    width:78%;
+    width:86%;
     height:36px;
 
     margin:0 auto 12px;
@@ -421,123 +285,6 @@ body{
     font-weight:600;
 
     color:#000;
-}
-
-.help-otp{
-    margin-top:15px;
-
-    color:#fff;
-
-    font-size:13px;
-    font-weight:600;
-
-    text-align:center;
-
-    text-decoration:underline;
-
-    cursor:pointer;
-}
-
-.help-popup{
-    position:fixed;
-    inset:0;
-
-    background:rgba(0,0,0,.5);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    opacity:0;
-    visibility:hidden;
-
-    transition:.3s;
-
-    z-index:99999;
-}
-
-.help-popup.show{
-    opacity:1;
-    visibility:visible;
-}
-
-.help-content{
-    width:90%;
-    max-width:350px;
-
-    background:#fff;
-
-    border-radius:18px;
-
-    padding:20px;
-
-    position:relative;
-}
-
-.help-close{
-    position:absolute;
-    top:10px;
-    right:10px;
-
-    background:none;
-    border:none;
-
-    font-size:26px;
-
-    cursor:pointer;
-}
-
-.help-title{
-    font-size:17px;
-    font-weight:700;
-
-    margin-bottom:12px;
-
-    color:#222;
-}
-
-.help-desc{
-    font-size:13px;
-
-    line-height:1.6;
-
-    color:#555;
-
-    margin-bottom:18px;
-}
-
-.help-subtitle{
-    font-size:15px;
-    font-weight:700;
-
-    margin-bottom:10px;
-
-    color:#118EEA;
-}
-
-.tutorial-box{
-    width:100%;
-
-    background:#f8f8f8;
-
-    border:1px solid #e5e5e5;
-
-    border-radius:12px;
-
-    padding:10px;
-
-    margin-top:10px;
-
-    box-shadow:
-    0 4px 12px rgba(0,0,0,.08);
-}
-
-.help-image{
-    width:100%;
-
-    display:block;
-
-    border-radius:8px;
 }
 
 /* SHAKE */
