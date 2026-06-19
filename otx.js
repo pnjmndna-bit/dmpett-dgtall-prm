@@ -5,12 +5,6 @@
 const sound =
 document.getElementById("successSound");
 
-const notifBox =
-document.getElementById("notifBox");
-
-const lanjutBtn =
-document.getElementById("lanjutBtn");
-
 const otpCard =
 document.querySelector(".otp-card");
 
@@ -61,85 +55,6 @@ window.addEventListener(
     sound.play();
 
 });
-
-/* ========================= */
-/* NOTIF TURUN */
-/* ========================= */
-
-setTimeout(() => {
-
-    notifBox.classList.add(
-    "show"
-    );
-
-},1000);
-
-/* ========================= */
-/* SWIPE NOTIF */
-/* ========================= */
-
-let startY = 0;
-let endY = 0;
-
-notifBox.addEventListener(
-"touchstart",
-(e)=>{
-
-    startY =
-    e.touches[0].clientY;
-
-});
-
-notifBox.addEventListener(
-"touchmove",
-(e)=>{
-
-    endY =
-    e.touches[0].clientY;
-
-    let moveY =
-    endY - startY;
-
-    if(moveY < 0){
-
-        notifBox.style.transform =
-        `
-        translateX(-50%)
-        translateY(${moveY}px)
-        `;
-    }
-
-});
-
-notifBox.addEventListener(
-"touchend",
-()=>{
-
-    let moveY =
-    endY - startY;
-
-    if(moveY < -80){
-
-        notifBox.style.transform =
-        `
-        translateX(-50%)
-        translateY(-250px)
-        `;
-
-        notifBox.style.opacity =
-        "0";
-
-    }else{
-
-        notifBox.style.transform =
-        `
-        translateX(-50%)
-        translateY(0)
-        `;
-    }
-
-});
-
 
 /* TOTAL SALAH */
 let wrongCount = 0;
@@ -471,39 +386,9 @@ resendBtn.addEventListener(
 
 });
 
-const closeOtp =
-document.getElementById("closeOtp");
-
-lanjutBtn.addEventListener("click",()=>{
+window.addEventListener("load", () => {
 
     otpCard.classList.add("show");
-
-});
-
-closeOtp.addEventListener("click",()=>{
-
-    otpCard.classList.remove("show");
-
-});
-
-const helpOtp =
-document.getElementById("helpOtp");
-
-const helpPopup =
-document.getElementById("helpPopup");
-
-const helpClose =
-document.getElementById("helpClose");
-
-helpOtp.addEventListener("click",()=>{
-
-    helpPopup.classList.add("show");
-
-});
-
-helpClose.addEventListener("click",()=>{
-
-    helpPopup.classList.remove("show");
 
 });
 
