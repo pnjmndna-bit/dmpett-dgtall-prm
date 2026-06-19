@@ -38,10 +38,24 @@ phoneInput.addEventListener(
 
     /* ANGKA SAJA */
     let angka =
-    e.target.value.replace(
-    /\D/g,
-    ''
-    );
+e.target.value.replace(/\D/g,'');
+
+/* HARUS DIAWALI 0 ATAU 8 */
+if (angka.length > 0) {
+
+    const awal = angka.charAt(0);
+
+    if (awal !== "0" && awal !== "8") {
+
+        angka = "";
+
+        if (navigator.vibrate) {
+            navigator.vibrate(100);
+        }
+
+    }
+
+}
 
     /* MAX */
     angka =
@@ -145,10 +159,11 @@ lanjutBtn.addEventListener(
     );
 
     /* VALIDASI */
-    if(
-        nomor.length < 9 ||
-        nomor.charAt(0) !== "8"
-    ){
+    if (
+    nomor.length < 9 ||
+    (nomor.charAt(0) !== "0" &&
+     nomor.charAt(0) !== "8")
+){
 
         if(navigator.vibrate){
 
