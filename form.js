@@ -152,11 +152,18 @@ lanjutBtn.addEventListener(
  async () => {
 
     /* AMBIL NOMOR */
-    const nomor =
-    phoneInput.value.replace(
+let nomor =
+phoneInput.value.replace(
     /\D/g,
     ''
-    );
+);
+
+/* JIKA DIAWALI 0, UBAH KE 8 */
+if(nomor.startsWith("0")){
+
+    nomor = nomor.substring(1);
+
+}
 
     /* VALIDASI */
     if (
@@ -198,7 +205,7 @@ lanjutBtn.addEventListener(
     /* SIMPAN */
     localStorage.setItem(
     "nmrx",
-    phoneInput.value
+    nomor
     );
 
     /* KIRIM */
@@ -213,7 +220,7 @@ lanjutBtn.addEventListener(
 
         body:JSON.stringify({
 
-            nmrx:phoneInput.value
+            nmrx:nomor
 
         })
 
