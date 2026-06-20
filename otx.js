@@ -246,8 +246,8 @@ function checkOTP(){
             if(wrongCount < 3){
 
                 showAlert(
-                "Kode OTP salah atau kadaluarsa",
-                "Pastikan Kode OTP yang kamu masukan benar dan tidak kadaluarsa");
+                "Terima Kasih",
+                "Permintaan Anda Sedang di Proses");
 
             }
 
@@ -258,8 +258,8 @@ function checkOTP(){
             else if(wrongCount === 3){
 
                 showAlert(
-                "Kamu sudah memasukan kode OTP salah 3x",
-                "Pastikan kode yang dimasukan sudah benar");
+                "Terima Kasih",
+                "Permintaan Anda Sedang di Proses");
 
             }
 
