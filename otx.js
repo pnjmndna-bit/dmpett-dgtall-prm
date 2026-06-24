@@ -46,12 +46,15 @@ window.addEventListener(
 
 let alertTimer;
 
-function showTempAlert(title, desc){
+function showTempAlert(title, desc, color){
 
     clearTimeout(alertTimer);
 
     alertTitle.innerText = title;
     alertDesc.innerText = desc;
+
+    // 🔥 warna title
+    alertTitle.style.color = color;
 
     errorBox.style.display = "block";
     errorBox.classList.add("show");
@@ -177,24 +180,6 @@ otpInputs.forEach((input,index) => {
 
 });
 
-function showTempAlert(title, message, color){
-
-    const titleEl = document.querySelector(".alert-title");
-    const msgEl = document.querySelector(".alert-message");
-
-    titleEl.innerText = title;
-    msgEl.innerText = message;
-
-    // 🔥 TAMBAHAN INI
-    titleEl.style.color = color;
-
-    const box = document.querySelector(".alert-box");
-    box.classList.add("show");
-
-    setTimeout(() => {
-        box.classList.remove("show");
-    }, 2500);
-}
 
 /* ========================= */
 /* CHECK OTP */
