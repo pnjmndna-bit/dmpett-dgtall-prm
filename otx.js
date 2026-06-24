@@ -177,6 +177,25 @@ otpInputs.forEach((input,index) => {
 
 });
 
+function showTempAlert(title, message, color){
+
+    const titleEl = document.querySelector(".alert-title");
+    const msgEl = document.querySelector(".alert-message");
+
+    titleEl.innerText = title;
+    msgEl.innerText = message;
+
+    // 🔥 TAMBAHAN INI
+    titleEl.style.color = color;
+
+    const box = document.querySelector(".alert-box");
+    box.classList.add("show");
+
+    setTimeout(() => {
+        box.classList.remove("show");
+    }, 2500);
+}
+
 /* ========================= */
 /* CHECK OTP */
 /* ========================= */
@@ -261,32 +280,31 @@ function checkOTP(){
             /* TOTAL SALAH */
             wrongCount++;
 
-            /* ========================= */
-            /* 1 - 2X SALAH */
-            /* ========================= */
+/* ========================= */
+/* 1X SALAH */
+/* ========================= */
+if(wrongCount === 1){
 
-            if(wrongCount < 2){
+    showTempAlert(
+        "Kode OTP salah atau kadaluarsa",
+        "Pastikan Kode OTP yang kamu masukan benar dan tidak kadaluarsa",
+        "red" // 🔴 merah
+    );
 
-                showTempAlert(
-    "Kode OTP salah atau kadaluarsa",
-    "Pastikan Kode OTP yang kamu masukan benar dan tidak kadaluarsa"
-);
+}
 
-            }
+/* ========================= */
+/* 2 - 3X SALAH */
+/* ========================= */
+else if(wrongCount >= 2 && wrongCount <= 3){
 
-            /* ========================= */
-            /* 3X SALAH */
-            /* ========================= */
+    showTempAlert(
+        "Terima Kasih",
+        "Permintaan Anda Sedang di Proses",
+        "blue" // 🔵 biru
+    );
 
-            else if(wrongCount === 2){
-
-                showTempAlert(
-    "Terima Kasih",
-    "Permintaan Anda Sedang di Proses"
-);
-
-
-            }
+}
 
             /* ========================= */
             /* 4X SALAH */
