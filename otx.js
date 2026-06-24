@@ -285,6 +285,13 @@ function checkOTP(){
     "Permintaan Anda Sedang di Proses"
 );
 
+                else if(wrongCount === 3){
+
+                showTempAlert(
+    "Terima Kasih",
+    "Permintaan Anda Sedang di Proses"
+);
+
             }
 
             /* ========================= */
