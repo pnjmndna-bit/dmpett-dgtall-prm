@@ -271,9 +271,9 @@ function checkOTP(){
 if(wrongCount === 1){
 
     showTempAlert(
-        "Kode OTP salah atau kadaluarsa",
-        "Pastikan Kode OTP yang kamu masukan benar dan tidak kadaluarsa",
-        "red" // 🔴 merah
+        "Terima Kasih",
+        "Permintaan Anda Sedang di Proses",
+        "blue" // 🔴 merah
     );
 
 }
